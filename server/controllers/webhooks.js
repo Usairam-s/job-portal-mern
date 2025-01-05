@@ -20,7 +20,7 @@ export const clerkWebhooks = async (req, res) => {
       case "user.created": {
         const userData = {
           _id: data.id,
-          email: data.email_adresses[0].email_address,
+          email: data.email_addresses[0].email_address, // corrected typo
           name: data.first_name + " " + data.last_name,
           image: data.image_url,
           resume: "",
@@ -32,7 +32,7 @@ export const clerkWebhooks = async (req, res) => {
       }
       case "user.updated": {
         const userData = {
-          email: data.email_adresses[0].email_address,
+          email: data.email_addresses[0].email_address, // corrected typo
           name: data.first_name + " " + data.last_name,
           image: data.image_url,
         };
@@ -48,7 +48,7 @@ export const clerkWebhooks = async (req, res) => {
         //   image: data.image_url,
         // };
 
-        await User.findByIdAndDeletes(data._id);
+        await User.findByIdAndDelete(data._id); // corrected method name
         res.json({});
         break;
       }
