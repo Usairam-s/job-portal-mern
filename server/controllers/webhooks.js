@@ -7,7 +7,11 @@ export const clerkWebhooks = async (req, res) => {
     const whook = new Webhook(process.env.CLERK_WEBHOOK_SECRET);
     const requestBody = JSON.stringify(req.body);
     let event;
-    event = await whook.verify(requestBody, req.headers["svix-signature"]);
+    event = await whook.verify(requestBody, {
+      "svix-id": req.headers["svix-id"],
+      "svix-timestamp": req.headers["svix-timestamp"],
+      "svix-signature": req.headers["svix-signature"],
+    });
 
     //gt ata nd tyep froom webhook
     const { data, type } = req.body;
